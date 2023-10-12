@@ -2,10 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import sideBarWeb from "../assets/images/bg-sidebar-desktop.svg";
 import sideBarMobile from "../assets/images/bg-sidebar-mobile.svg";
-import { useFormik } from "formik";
+import { toFormikValidationSchema } from "zod-formik-adapter";
+import useFormStore from "../store/formstore";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { z } from "zod";
 
-const formSchema = z.object({
+const step1Schema = z.object({
   name: z.string().min(2, "Too short!").max(50, "Too long!"),
   email: z.string().email("Invalid email"),
   phone: z.string().min(10, "Invalid Phone Number"),
@@ -13,23 +15,18 @@ const formSchema = z.object({
 
 const Step1: React.FC = () => {
   const navigate = useNavigate();
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      phone: "",
-    },
-    validationSchema: formSchema,
-    onSubmit: (values) => {
-      // Handle form submission here
-      console.log(values);
-      navigate("/step2");
-    },
-  });
+  const { step1, setForm1 } = useFormStore();
 
   return (
-    <>
+    <Formik
+      initialValues={step1}
+      validationSchema={toFormikValidationSchema(step1Schema)}
+      onSubmit={(values) => {
+        // console.log(values);
+        setForm1(values);
+        navigate("/step2");
+      }}
+    >
       <div className="grid grid-rows-[1fr, 2fr] md:grid-cols-[1fr,2fr] gap-10 bg-white md:p-5 rounded-lg shadow-md shadow-gray-500">
         <div
           className="w-full max-w-md mx-auto flex flex-row justify-center items-start  md:justify-start md:flex-col gap-5 p-8"
@@ -85,7 +82,7 @@ const Step1: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="p-6 relative bg-white rounded-sm">
+        <div className="p-6 relative bg-white rounded-sm -translate-y-16 md:translate-y-0">
           <h1 className="text-3xl text-gray-700 font-bold color-gray-600 leading-10 my-1">
             Personal info
           </h1>
@@ -93,7 +90,7 @@ const Step1: React.FC = () => {
             Please provide your name, email address and phone number.
           </p>
           <div className="py-5 my-6">
-            <form onSubmit={formik.handleSubmit}>
+            <Form>
               <div className="mb-4">
                 <label
                   htmlFor="name"
@@ -101,20 +98,20 @@ const Step1: React.FC = () => {
                 >
                   Name
                 </label>
-                <input
+                <Field
                   type="text"
                   id="name"
                   name="name"
-                  value={formik.values.name}
-                  onChange={(e) => formik.handleChange(e)}
-                  // onBlur={formik.handleBlur}
                   placeholder="e.g. Stephen King"
-                  className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-800"
-                  // required
+                  className={`border border-gray-300
+                    rounded px-3 py-2 w-full focus:outline-none focus:border-blue-800`}
+                  required
                 />
-                {formik.touched.name && formik.errors.name ? (
-                  <div>{formik.errors.name}</div>
-                ) : null}
+                <ErrorMessage name="name">
+                  {(errorMsg) => (
+                    <p className="text-red-500 text-xs">{errorMsg}</p>
+                  )}
+                </ErrorMessage>
               </div>
               <div className="mb-4">
                 <label
@@ -123,36 +120,42 @@ const Step1: React.FC = () => {
                 >
                   Email
                 </label>
-                <input
+                <Field
                   type="email"
                   id="email"
                   name="email"
-                  value={formik.values.email}
-                  onChange={(e) => console.log(e.target.value)}
-                  // onBlur={formik.handleBlur}
                   placeholder="e.g. stephenking@lorem.com"
-                  className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-800"
-                  // required
+                  className={`border border-gray-300
+                    rounded px-3 py-2 w-full focus:outline-none focus:border-blue-800`}
+                  required
                 />
+                <ErrorMessage name="email">
+                  {(errorMsg) => (
+                    <p className="text-red-500 text-xs">{errorMsg}</p>
+                  )}
+                </ErrorMessage>
               </div>
-              <div className="mb-4">
+              <div className="mb-14">
                 <label
                   htmlFor="phone"
                   className="block text-gray-700 font-semibold mb-2"
                 >
                   Phone Number
                 </label>
-                <input
+                <Field
                   type="tel"
                   id="phone"
                   name="phone"
-                  value={formik.values.phone}
-                  onChange={(e) => console.log(e.target.value)}
-                  // onBlur={formik.handleBlur}
                   placeholder="e.g.+1 234 567 890"
-                  className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-800"
-                  // required
+                  className={`border border-gray-300
+                    rounded px-3 py-2 w-full focus:outline-none focus:border-blue-800`}
+                  required
                 />
+                <ErrorMessage name="phone">
+                  {(errorMsg) => (
+                    <p className="text-red-500 text-xs">{errorMsg}</p>
+                  )}
+                </ErrorMessage>
               </div>
               <div className="mb-4">
                 <button
@@ -162,11 +165,11 @@ const Step1: React.FC = () => {
                   Next Step
                 </button>
               </div>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
-    </>
+    </Formik>
   );
 };
 

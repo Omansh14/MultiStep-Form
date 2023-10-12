@@ -5,7 +5,6 @@ import Step4 from "./Steps/Step4";
 import {Routes, Route} from 'react-router-dom'
 
 const App = () => {
-
   return (
     <div className="flex md:flex-row md:justify-center md:items-center h-screen">
       <Routes>
