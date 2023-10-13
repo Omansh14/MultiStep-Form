@@ -6,7 +6,7 @@ import {Routes, Route} from 'react-router-dom'
 
 const App = () => {
   return (
-    <div className="flex md:flex-row md:justify-center md:items-center h-screen">
+    <div className="flex md:flex-row justify-center sm:items-center h-screen">
       <Routes>
         <Route path="/" element={<Step1/>}></Route>
         <Route path="/step2" element={<Step2/>}></Route>

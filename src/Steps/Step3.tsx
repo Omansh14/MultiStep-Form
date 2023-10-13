@@ -1,6 +1,5 @@
 import React from "react";
-import sideBarWeb from "../assets/images/bg-sidebar-desktop.svg";
-import sideBarMobile from "../assets/images/bg-sidebar-mobile.svg";
+import SideBar from "../components/SideBar";
 import { useNavigate } from "react-router-dom";
 import useFormStore from "../store/formstore";
 import {z} from 'zod';
@@ -26,62 +25,9 @@ const Step2: React.FC = () => {
     >
       {({values}) => (
       <Form>
-      <div className="grid grid-rows-[1fr, 2fr] md:grid-cols-[1fr,2fr] gap-8 bg-white md:p-5 rounded-lg shadow-md shadow-gray-500 max-h-">
-        <div
-          className="w-full max-w-md mx-auto flex flex-row justify-center items-start  md:justify-start md:flex-col gap-5 p-8"
-          style={{
-            backgroundImage: `url(${
-              window.innerWidth < 768 ? sideBarMobile : sideBarWeb
-            })`,
-            backgroundSize: "cover",
-          }}
-        >
-          <div className="flex gap-4 items-center">
-            <div className="w-7 h-7 rounded-full border border-white flex justify-center text-white">
-              1
-            </div>
-            <div
-              style={{ display: window.innerWidth < 768 ? "none" : "block" }}
-            >
-              <p className="text-gray-300 text-xs">STEP 1</p>
-              <p className="text-white text-sm font-bold">YOUR INFO</p>
-            </div>
-          </div>
-          <div className="flex gap-4 items-center">
-            <div className="w-7 h-7 rounded-full border border-white flex justify-center text-white">
-              2
-            </div>
-            <div
-              style={{ display: window.innerWidth < 768 ? "none" : "block" }}
-            >
-              <p className="text-gray-300 text-xs">STEP 2</p>
-              <p className="text-white text-sm font-bold">SELECT PLAN</p>
-            </div>
-          </div>
-          <div className="flex gap-4 items-center">
-            <div className="w-7 h-7 rounded-full border flex justify-center bg-blue-200 text-black">
-              3
-            </div>
-            <div
-              style={{ display: window.innerWidth < 768 ? "none" : "block" }}
-            >
-              <p className="text-gray-300 text-xs">STEP 3</p>
-              <p className="text-white text-sm font-bold">ADD-ONS</p>
-            </div>
-          </div>
-          <div className="flex gap-4 items-center">
-            <div className="w-7 h-7 rounded-full border border-white flex justify-center text-white">
-              4
-            </div>
-            <div
-              style={{ display: window.innerWidth < 768 ? "none" : "block" }}
-            >
-              <p className="text-gray-300 text-xs">STEP 4</p>
-              <p className="text-white text-sm font-bold">SUMMARY</p>
-            </div>
-          </div>
-        </div>
-        <div className="px-16 py-8 relative bg-white rounded-sm">
+      <div className="grid grid-rows-[1fr, 2fr] sm:grid-cols-[1fr,2fr] gap-10 bg-white sm:p-5 rounded-lg shadow-md shadow-gray-500">
+        <SideBar step={3} />
+        <div className="px-8 sm:px-16 py-8 relative bg-white rounded-sm">
           <h1 className="text-3xl text-gray-700 font-bold color-gray-600 leading-10 my-1 px-2">
             Pick add-ons
           </h1>
@@ -159,11 +105,11 @@ const Step2: React.FC = () => {
                       value="Customizable Profit-2"
                       className="w-5 h-5 mr-2 border border-gray-400 rounded px-3"
                     />
-                    <div>
-                      <p className="font-bold text-sm text-gray-800 px-3">
+                    <div className="flex flex-col h-auto">
+                      <p className="font-bold text-sm text-gray-800">
                         Customizable Profile
                       </p>
-                      <p className="text-xs text-gray-500 font-semibold px-3">
+                      <p className="flex text-xs text-gray-500 font-semibold">
                         Custom theme on your profile
                       </p>
                     </div>

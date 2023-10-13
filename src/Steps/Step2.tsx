@@ -1,6 +1,5 @@
 import React from "react";
-import sideBarWeb from "../assets/images/bg-sidebar-desktop.svg";
-import sideBarMobile from "../assets/images/bg-sidebar-mobile.svg";
+import SideBar from "../components/SideBar";
 import arcade from "../assets/images/icon-arcade.svg";
 import advance from "../assets/images/icon-advanced.svg";
 import pro from "../assets/images/icon-pro.svg";
@@ -28,70 +27,9 @@ const Step2: React.FC = () => {
     >
       {({ values }) => (
         <Form>
-          <div className="grid grid-rows-[1fr, 2fr] md:grid-cols-[1fr,2fr] gap-10 bg-white md:p-5 rounded-lg shadow-md shadow-gray-500 max-h-">
-            <div
-              className="w-full max-w-md mx-auto flex flex-row justify-center items-start  md:justify-start md:flex-col gap-5 p-8"
-              style={{
-                backgroundImage: `url(${
-                  window.innerWidth < 768 ? sideBarMobile : sideBarWeb
-                })`,
-                backgroundSize: "cover",
-              }}
-            >
-              <div className="flex gap-4 items-center">
-                <div className="w-7 h-7 rounded-full border border-white flex justify-center text-white">
-                  1
-                </div>
-                <div
-                  style={{
-                    display: window.innerWidth < 768 ? "none" : "block",
-                  }}
-                >
-                  <p className="text-gray-300 text-xs">STEP 1</p>
-                  <p className="text-white text-sm font-bold">YOUR INFO</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-center">
-                <div className="w-7 h-7 rounded-full border flex justify-center bg-blue-200 text-black">
-                  2
-                </div>
-                <div
-                  style={{
-                    display: window.innerWidth < 768 ? "none" : "block",
-                  }}
-                >
-                  <p className="text-gray-300 text-xs">STEP 2</p>
-                  <p className="text-white text-sm font-bold">SELECT PLAN</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-center">
-                <div className="w-7 h-7 rounded-full border border-white flex justify-center text-white">
-                  3
-                </div>
-                <div
-                  style={{
-                    display: window.innerWidth < 768 ? "none" : "block",
-                  }}
-                >
-                  <p className="text-gray-300 text-xs">STEP 3</p>
-                  <p className="text-white text-sm font-bold">ADD-ONS</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-center">
-                <div className="w-7 h-7 rounded-full border border-white flex justify-center text-white">
-                  4
-                </div>
-                <div
-                  style={{
-                    display: window.innerWidth < 768 ? "none" : "block",
-                  }}
-                >
-                  <p className="text-gray-300 text-xs">STEP 4</p>
-                  <p className="text-white text-sm font-bold">SUMMARY</p>
-                </div>
-              </div>
-            </div>
-            <div className="py-6 px-9 relative bg-white rounded-sm">
+          <div className="grid grid-rows-[1fr, 2fr] sm:grid-cols-[1fr,2fr] gap-10 bg-white sm:p-5 rounded-lg shadow-md shadow-gray-500">
+            <SideBar step={2} />
+            <div className="p-6 relative bg-white rounded-sm -translate-y-16 md:translate-y-0">
               <h1 className="text-3xl text-gray-700 font-bold color-gray-600 leading-10 my-1">
                 Select your plan
               </h1>
@@ -100,9 +38,9 @@ const Step2: React.FC = () => {
               </p>
               <div className="py-5 my-6">
                 <div className="mb-4">
-                  <div className="flex flex-row gap-5 mb-8">
+                  <div className="flex flex-col items-center sm:items-start sm:flex-row gap-5 mb-8">
                     <label
-                      className={`w-32 h-36 ${
+                      className={`w-full sm:w-32 h-36 ${
                         values.plan === "Arcade-9" ? "border-2" : "border"
                       } px-3 py-5 ${
                         values.plan === "Arcade-9"
@@ -110,30 +48,34 @@ const Step2: React.FC = () => {
                           : "border-gray-400"
                       }  rounded-md relative`}
                     >
-                      <img src={arcade} />
-                      <div className="absolute bottom-3">
-                        <p className="font-semibold text-sm text-gray-800">
-                          Arcade
-                        </p>
-                        <p className="text-xs text-gray-500 font-semibold">
-                          {values.yearly ? "$90/yr" : "$9/mo"}
-                        </p>
-                        {values.yearly && (
-                          <p className="text-xs text-gray-600 font-bold">
-                            2 months free
+                      <div className="flex flex-row">
+                        <div>
+                          <img src={arcade} />
+                        </div>
+                        <div className="absolute bottom-3">
+                          <p className="font-semibold text-sm text-gray-800">
+                            Arcade
                           </p>
-                        )}
+                          <p className="text-xs text-gray-500 font-semibold">
+                            {values.yearly ? "$90/yr" : "$9/mo"}
+                          </p>
+                          {values.yearly && (
+                            <p className="text-xs text-gray-600 font-bold">
+                              2 months free
+                            </p>
+                          )}
+                        </div>
+                        <Field
+                          type="radio"
+                          id="Arcade-9"
+                          name="plan"
+                          value="Arcade-9"
+                          className="hidden"
+                        />
                       </div>
-                      <Field
-                        type="radio"
-                        id="Arcade-9"
-                        name="plan"
-                        value="Arcade-9"
-                        className="hidden"
-                      />
                     </label>
                     <label
-                      className={`w-32 h-36 ${
+                      className={`w-full sm:w-32 h-36 ${
                         values.plan === "Advanced-12" ? "border-2" : "border"
                       } px-3 py-5 ${
                         values.plan === "Advanced-12"
@@ -164,7 +106,7 @@ const Step2: React.FC = () => {
                       />
                     </label>
                     <label
-                      className={`w-32 h-36 ${
+                      className={`w-full sm:w-32 h-36 ${
                         values.plan === "Pro-15" ? "border-2" : "border"
                       } px-3 py-5 ${
                         values.plan === "Pro-15"
@@ -195,7 +137,7 @@ const Step2: React.FC = () => {
                       />
                     </label>
                   </div>
-                  <div className=" bg-gray-100 flex gap-4 justify-center items-center w-full min-h-[4rem] rounded-lg mb-24">
+                  <div className=" bg-gray-100 flex gap-4 justify-center items-center w-full min-h-[4rem] rounded-lg sm:mb-24">
                     <p className="font-black text-gray-800">Monthly</p>
                     <label
                       className={`${
