@@ -27,7 +27,7 @@ const Step2: React.FC = () => {
                 Double-check everything looks OK before confirming.
               </p>
               <div className="py-5 my-6">
-                <div className="h-52 w-80 sm:w-96 bg-gray-100 p-4 rounded-md">
+                <div className="h-52 w-full sm:w-96 bg-gray-100 p-4 rounded-md">
                   <div className="flex flex-row justify-between items-center">
                     <div>
                       <p className="text-indigo-800 font-bold">
