@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 
-const Step2Schema = z.enum(["Arcade-9", "Advanced-12", "Pro-15"]);
+const Step2Schema = z.object({
+  plan: z.enum(["Arcade-9", "Advanced-12", "Pro-15"])
+})
 
 const Step2: React.FC = () => {
   const navigate = useNavigate();
